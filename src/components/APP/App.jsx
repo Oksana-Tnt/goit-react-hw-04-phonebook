@@ -10,19 +10,10 @@ import Filter from 'components/Filter/Filter';
 export const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(()=>{return JSON.parse(localStorage.getItem("contacts"))??"" });
 
   useEffect(() => {
-    const localContacts = localStorage.getItem('contacts');
-
-    if (localContacts) {
-      setContacts(JSON.parse(localContacts));
-    }
-    console.log(localContacts);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    contacts && localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const toggleModal = () => {
@@ -88,29 +79,3 @@ export const App = () => {
     </Container>
   );
 };
-
-//   componentDidMount() {
-//     const contacts = localStorage.getItem('contacts');
-//     const parsedContacts = JSON.parse(contacts);
-
-//     if (parsedContacts) {
-//       this.setState({ contacts: parsedContacts });
-//     }
-
-//
-//   }
-
-//   componentDidUpdate(prevProps, prevState) {
-//     if (this.state.contacts !== prevState.contacts) {
-//       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-//     }
-//   }
-
-//
-
-//   render() {
-//     const { filter } = this.state;
-//
-
-//   }
-// }
