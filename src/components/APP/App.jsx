@@ -54,9 +54,7 @@ export const App = () => {
       return [...prevContacts, newContact];
     });
  
-    toggleModal();
-
- 
+    toggleModal(); 
   };
 
   const deleteContact = id => {
