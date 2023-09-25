@@ -1,7 +1,7 @@
 import FormContact from 'components/FormContact/FormContact';
 import { Container } from './APP.styled';
 import Modal from '../Modal/Modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from 'components/Header/Header';
 import { nanoid } from 'nanoid';
 import ContactList from 'components/ContactList/ContactList';
@@ -11,6 +11,19 @@ export const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const localContacts = localStorage.getItem('contacts');
+
+    if (localContacts) {
+      setContacts(JSON.parse(localContacts));
+    }
+    console.log(localContacts);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const toggleModal = () => {
     setIsShowModal(!isShowModal);
@@ -43,8 +56,10 @@ export const App = () => {
       number,
     };
 
-    setContacts([newContact, ...contacts]);
-
+    setContacts(prevContacts => {
+      return [...prevContacts, newContact];
+    });
+    console.log(contacts);
     toggleModal();
   };
 
