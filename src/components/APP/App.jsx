@@ -25,10 +25,12 @@ export const App = () => {
   };
 
   const getFilteredContacts = () => {
+    console.log(contacts);
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
+  
   };
 
   const addContact = ({ name, number }) => {
@@ -59,9 +61,7 @@ export const App = () => {
       return prevState.filter(contact => contact.id !== id);
     });
   };
-
-  const filteredContacts = getFilteredContacts();
-
+ 
   return (
     <Container>
       <Header showModal={toggleModal} />
@@ -73,7 +73,7 @@ export const App = () => {
       )}
 
       <ContactList
-        contacts={filteredContacts}
+        contacts={getFilteredContacts()}
         onDeleteContact={deleteContact}
       />
     </Container>
