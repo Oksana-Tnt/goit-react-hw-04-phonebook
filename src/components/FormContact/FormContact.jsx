@@ -1,52 +1,62 @@
-import { Component, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { object, string, number } from 'yup';
 
-export const FormContact = ({ closeModal, onSubmit }) => {
+const schema = object({
+  name: string().required().min(6),
+  number: number().required().min(7).positive().integer(),
+});
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+const initialValues = {
+  name: '',
+  number: '',
+};
 
-  const handleChange = ({ target }) => {
-    setName(target.value);
-    setNumber(target.value);
+const FormContact = ({ addContact }) => {
+  const handleSubmit = (value, { resetForm }) => {
+    addContact(value);
+    resetForm();
   };
 
-
-
   return (
-    <form className="row g-3" onSubmit={onSubmit}>
-      <div className="mb-3">
-        <label htmlFor="exampleFormControlInput1" className="form-label">
-          Name
-        </label>
-        <input
-          name="name"
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="name"
-          onChange={handleChange}
-          value={name}
-        />
-        <label htmlFor="exampleFormControlInput1" className="form-label">
-          Number
-        </label>
-        <input
-          name="number"
-          type="tel"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="number"
-          // onChange={handleChange}
-          // value={number}
-        />
-      </div>
-      <div className="mb-3">
-        <button type="submit" className="btn btn-primary mb-3">
-          Add contact
-        </button>
-      </div>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+    >
+      <Form className="row g-3">
+        <div className="mb-3">
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Name
+          </label>
+          <Field
+            name="name"
+            type="text"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="name"
+          />
+          <ErrorMessage name="name" />
+          <br />
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Number
+          </label>
+          <Field
+            name="number"
+            type="tel"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="number"
+          />
+          <ErrorMessage name="number" />
+        </div>
+        <div className="mb-3">
+          <button type="submit" className="btn btn-primary mb-3">
+            Add Contact
+          </button>
+        </div>
+      </Form>
+    </Formik>
   );
 };
 
