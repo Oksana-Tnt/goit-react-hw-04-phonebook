@@ -25,9 +25,10 @@ export const App = () => {
   };
 
   const getFilteredContacts = () => {
-    console.log(contacts);
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
+
+    const normalizedFilter = filter.toLowerCase();  
+
+    return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   
@@ -52,8 +53,10 @@ export const App = () => {
     setContacts(prevContacts => {
       return [...prevContacts, newContact];
     });
-    console.log(contacts);
+ 
     toggleModal();
+
+ 
   };
 
   const deleteContact = id => {
