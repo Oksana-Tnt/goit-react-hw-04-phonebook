@@ -10,7 +10,7 @@ import Filter from 'components/Filter/Filter';
 export const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState(()=>{return JSON.parse(localStorage.getItem("contacts"))??"" });
+  const [contacts, setContacts] = useState(()=>{return JSON.parse(localStorage.getItem("contacts"))??[] });
 
   useEffect(() => {
     contacts && localStorage.setItem('contacts', JSON.stringify(contacts));
