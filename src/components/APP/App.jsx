@@ -30,9 +30,9 @@ export const App = () => {
 
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  
-  };
+    ); 
+  }; 
+
 
   const addContact = ({ name, number }) => {
     if (
